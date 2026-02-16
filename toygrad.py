@@ -30,6 +30,7 @@ class Value:
 
     # backpropagation - topological sort of the graph 
     def backward(self):
+        # building topological graph 
         topo = []
         visit = set()
 
