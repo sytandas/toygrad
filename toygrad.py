@@ -1,4 +1,5 @@
 # input processing of value and gradient
+import math
 
 class Value:
     def __init__(self, data, _children=()): # empty tuple for child node
@@ -27,6 +28,17 @@ class Value:
         
         out._backward = _backward
         return out
+    
+    def tanh(self):
+        x = self.data
+        t = ((math.exp(2*x) - 1) / (math.exp(2*x) + 1)) 
+        out = Value(t, (self, ), )
+
+        def _backward():
+            self.grad += (1 - t**2) * out.grad # derivative of tanh is 1 - tanh^2 
+        out._backward = _backward
+        return out
+        
 
     # backpropagation - topological sort of the graph 
     def backward(self):
@@ -49,15 +61,6 @@ class Value:
             v._backward()
 
 a = Value(2.0)
-b = Value(-1.0)
-c = Value(10.0)
-
-d = a * b
-e = d * c   # output
-
-e.backward()
-
-print("e =", e)
-print("a.grad =", a.grad)
-print("b.grad =", b.grad)
-print("c.grad =", c.grad)
+b = a.tanh()
+b.backward()
+print(a)
