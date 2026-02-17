@@ -29,6 +29,12 @@ class Value:
         out._backward = _backward
         return out
     
+    def __rmul__(self, other):  # for doing other * self (to avoiding the eroor)
+        return self * other
+    
+    def __truediv__(self, other):   # divition self / other ~ self * other ^-1
+        return self * other**-1
+
     def tanh(self):
         x = self.data
         t = ((math.exp(2*x) - 1) / (math.exp(2*x) + 1)) 
@@ -38,7 +44,15 @@ class Value:
             self.grad += (1 - t**2) * out.grad # derivative of tanh is 1 - tanh^2 
         out._backward = _backward
         return out
-        
+    
+    def exp(self):
+        x = self.data
+        out = Value(math.exp(x), (self, ), )
+
+        def _backward():  
+            self.grad += out.data * out.grad
+        out._backward = _backward
+        return out
 
     # backpropagation - topological sort of the graph 
     def backward(self):
@@ -63,4 +77,9 @@ class Value:
 a = Value(2.0)
 b = a.tanh()
 b.backward()
-print(a)
+print(f'tanh {a}')
+
+a = Value(2.0)
+b = a.exp()
+b.backward()
+print(f'exp {a}')
