@@ -53,6 +53,16 @@ class Value:
             self.grad += out.data * out.grad
         out._backward = _backward
         return out
+    
+    def __pow__(self, other):
+        assert isinstance(other, (int, float)), "only supporting int/float powers for now"
+        out = Value(self.data**other, (self,), f'**{other}')
+
+        def _backward():
+            self.grad += (other * self.data**(other-1)) * out.grad
+        out._backward = _backward
+
+        return out
 
     # backpropagation - topological sort of the graph 
     def backward(self):
