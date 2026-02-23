@@ -7,9 +7,30 @@ class Value:
         self.grad = 0.0
         self._previous = set(_children)
         self._backward = lambda: None
-        
+    
+    def __neg__(self): # -self
+        return self * -1
+
+    def __radd__(self, other): # other + self
+        return self + other
+
+    def __sub__(self, other): # self - other
+        return self + (-other)
+
+    def __rsub__(self, other): # other - self
+        return other + (-self)
+
+    def __rmul__(self, other): # other * self
+        return self * other
+
+    def __truediv__(self, other): # self / other
+        return self * other**-1
+
+    def __rtruediv__(self, other): # other / self
+        return other * self**-1
+
     def __repr__(self):
-        return f"value = {self.data}, grad ={self.grad}"
+        return f"Value(data={self.data}, grad={self.grad})"    
 
     def __add__(self, other): # a.__add__(b)
         out = Value(self.data + other.data, (self, other)) # Return Value
