@@ -2,6 +2,7 @@
 import math
 
 class Value:
+
     def __init__(self, data, _children=()): # empty tuple for child node
         self.data = data
         self.grad = 0.0
