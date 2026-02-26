@@ -1,4 +1,5 @@
 import math, random
+import torch
 
 class Module:
 
@@ -12,6 +13,7 @@ class Module:
 class Neuron(Module):
 
     def __init__(self, nin, nonlin=True):
+        Value = torch.randn()
         self.w = [Value(random.uniform(-1,1)) for _ in range(nin)]
         self.b = Value(0)
         self.nonlin = nonlin
