@@ -115,7 +115,7 @@ class Value:
         for v in reversed(topo):
             v._backward()
 
-a = Value(2.0)
+a = Value(3.0)
 b = a.tanh()
 b.backward()
 print(f'tanh {a}')
