@@ -1,1 +1,1 @@
-all about backpropagation and chain rule, don't know about future progress
+backpropagation and chain rule
