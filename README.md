@@ -1,1 +1,1 @@
-backpropagation and chain rule
+backpropagation, chain rule and grading. 
