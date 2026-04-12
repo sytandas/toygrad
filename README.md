@@ -1,1 +1,1 @@
-Backpropagation, chain rule and grading, regression and so on.
+Backpropagation, chain rule and grading, regression.
