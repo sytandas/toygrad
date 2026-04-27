@@ -1,2 +1,2 @@
-# grading and backpropagate through
+# grading and backpropagate
 import torch
